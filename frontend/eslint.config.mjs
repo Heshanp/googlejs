@@ -1,0 +1,81 @@
+import js from "@eslint/js";
+import tseslint from "typescript-eslint";
+
+export default [
+    js.configs.recommended,
+    ...tseslint.configs.recommended,
+    {
+        files: ["**/*.ts", "**/*.tsx"],
+        languageOptions: {
+            parserOptions: {
+                ecmaFeatures: {
+                    jsx: true,
+                },
+            },
+            globals: {
+                console: "readonly",
+                window: "readonly",
+                document: "readonly",
+                fetch: "readonly",
+                localStorage: "readonly",
+                sessionStorage: "readonly",
+                setTimeout: "readonly",
+                clearTimeout: "readonly",
+                setInterval: "readonly",
+                clearInterval: "readonly",
+                URL: "readonly",
+                URLSearchParams: "readonly",
+                FormData: "readonly",
+                File: "readonly",
+                Blob: "readonly",
+                FileReader: "readonly",
+                Image: "readonly",
+                HTMLElement: "readonly",
+                HTMLInputElement: "readonly",
+                HTMLCanvasElement: "readonly",
+                Event: "readonly",
+                MouseEvent: "readonly",
+                KeyboardEvent: "readonly",
+                ResizeObserver: "readonly",
+                IntersectionObserver: "readonly",
+                MutationObserver: "readonly",
+                requestAnimationFrame: "readonly",
+                cancelAnimationFrame: "readonly",
+                navigator: "readonly",
+                location: "readonly",
+                history: "readonly",
+                AbortController: "readonly",
+                atob: "readonly",
+                btoa: "readonly",
+                process: "readonly",
+                Response: "readonly",
+                Request: "readonly",
+                Headers: "readonly",
+                React: "readonly",
+            },
+        },
+        rules: {
+            // Relax rules for faster development
+            "@typescript-eslint/no-explicit-any": "warn",
+            "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+            "@typescript-eslint/ban-ts-comment": "off",
+            "@typescript-eslint/no-empty-object-type": "warn",
+            "@typescript-eslint/no-require-imports": "warn",
+            "no-console": "off",
+            "no-useless-escape": "warn",
+            "no-empty": "warn",
+            "no-empty-pattern": "warn",
+            "prefer-const": "warn",
+            "no-undef": "off", // TypeScript handles this
+            "no-case-declarations": "warn",
+        },
+    },
+    {
+        ignores: [
+            "node_modules/**",
+            ".next/**",
+            "out/**",
+            "dist/**",
+        ],
+    },
+];

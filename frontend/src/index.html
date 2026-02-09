@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#0d9488" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Justsell" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="apple-touch-icon" href="https://via.placeholder.com/192/0d9488/ffffff?text=J" />
+    <title>Justsell Marketplace</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            },
+            colors: {
+              primary: {
+                50: '#ecfdf5',
+                100: '#d1fae5',
+                200: '#a7f3d0',
+                300: '#6ee7b7',
+                400: '#34d399',
+                500: '#10b981', // Vibrant Emerald
+                600: '#059669',
+                700: '#047857',
+                800: '#065f46',
+                900: '#064e3b',
+                950: '#022c22',
+              },
+              neutral: {
+                850: '#171717',
+                900: '#0f0f0f',
+                950: '#050505', // Deep black
+              }
+            },
+            animation: {
+              'blob': 'blob 7s infinite',
+              'fade-in-up': 'fadeInUp 0.5s ease-out forwards',
+            },
+            keyframes: {
+              blob: {
+                '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                '100%': { transform: 'translate(0px, 0px) scale(1)' },
+              },
+              fadeInUp: {
+                '0%': { opacity: '0', transform: 'translateY(20px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              }
+            },
+            padding: {
+              'safe': 'env(safe-area-inset-bottom)',
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        -webkit-tap-highlight-color: transparent;
+      }
+      
+      /* Custom scrollbar for horizontal scrolling areas */
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      
+      /* Modern Glassmorphism - Liquid Glass Effect */
+      .glass-panel {
+        background: rgba(255, 255, 255, 0.65);
+        backdrop-filter: blur(24px) saturate(180%);
+        -webkit-backdrop-filter: blur(24px) saturate(180%);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+      }
+      
+      .dark .glass-panel {
+        background: rgba(20, 20, 20, 0.65);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+      }
+
+      /* Pull to refresh spinner */
+      .ptr-spinner {
+        transition: transform 0.3s ease;
+      }
+      .ptr-spinner.rotating {
+        animation: ptr-rotate 1s linear infinite;
+      }
+      @keyframes ptr-rotate {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "clsx": "https://aistudiocdn.com/clsx@^2.1.1",
+    "tailwind-merge": "https://aistudiocdn.com/tailwind-merge@^3.4.0",
+    "zustand": "https://aistudiocdn.com/zustand@^5.0.8",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0",
+    "react-router-dom": "https://aistudiocdn.com/react-router-dom@^7.9.6",
+    "tailwindcss": "https://aistudiocdn.com/tailwindcss@^4.1.17",
+    "react-dom": "https://aistudiocdn.com/react-dom@^19.2.0",
+    "zod": "https://aistudiocdn.com/zod@^4.1.13",
+    "date-fns": "https://aistudiocdn.com/date-fns@^4.1.0",
+    "react-hook-form": "https://aistudiocdn.com/react-hook-form@^7.51.0",
+    "@hookform/resolvers/zod": "https://aistudiocdn.com/@hookform/resolvers@^3.3.4/zod",
+    "@hookform/resolvers/": "https://aistudiocdn.com/@hookform/resolvers@^5.2.2/",
+    "framer-motion": "https://aistudiocdn.com/framer-motion@^11.0.8",
+    "next": "https://aistudiocdn.com/next@^16.0.4",
+    "zustand/": "https://aistudiocdn.com/zustand@^5.0.8/"
+  }
+}
+</script>
+</head>
+  <body class="bg-gray-50 dark:bg-neutral-950 text-gray-900 dark:text-gray-100 antialiased transition-colors duration-300 overscroll-y-none selection:bg-primary-500 selection:text-white">
+    <div id="root"></div>
+  </body>
+</html>

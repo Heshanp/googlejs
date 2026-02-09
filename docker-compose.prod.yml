@@ -1,0 +1,80 @@
+version: '3.8'
+
+services:
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: justsell-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - justsell-network
+    restart: unless-stopped
+
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: justsell-postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-justsell}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/migrations:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - justsell-network
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
+    container_name: justsell-backend
+    environment:
+      DATABASE_URL: postgres://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-justsell}?sslmode=disable
+      GEMINI_API_KEY: ${GEMINI_API_KEY:?GEMINI_API_KEY is required}
+      # Used by both CORS middleware and WebSocket Origin checks.
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:?ALLOWED_ORIGINS is required (e.g. https://www.justsell.co.nz)}
+      PORT: 8080
+      ENV: production
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - justsell-network
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-/api}
+        NEXT_PUBLIC_WS_URL: ${NEXT_PUBLIC_WS_URL:-}
+    container_name: justsell-frontend
+    environment:
+      NODE_ENV: production
+    depends_on:
+      - backend
+    networks:
+      - justsell-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  justsell-network:
+    driver: bridge

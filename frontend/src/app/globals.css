@@ -1,0 +1,148 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        /* Golden Ratio Constants */
+        --phi: 1.618034;
+        --phi-inverse: 0.618034;
+
+        /* Fibonacci Spacing Scale */
+        --space-phi-3: 3px;
+        --space-phi-5: 5px;
+        --space-phi-8: 8px;
+        --space-phi-13: 13px;
+        --space-phi-21: 21px;
+        --space-phi-34: 34px;
+        --space-phi-55: 55px;
+        --space-phi-89: 89px;
+
+        /* Typography Scale (φ-based) */
+        --text-phi-xs: 0.618rem;
+        /* ~10px */
+        --text-phi-sm: 0.875rem;
+        /* 14px */
+        --text-phi-base: 1rem;
+        /* 16px */
+        --text-phi-lg: 1.125rem;
+        /* 18px */
+        --text-phi-xl: 1.618rem;
+        /* ~26px */
+        --text-phi-2xl: 2.618rem;
+        /* ~42px */
+
+        /* Layout Proportions */
+        --ratio-major: 61.8%;
+        --ratio-minor: 38.2%;
+
+        /* App Dimensions (Fibonacci-aligned) */
+        --app-header-height: 80px;
+        --app-bottom-nav-height: 55px;
+        --app-header-offset: var(--app-header-height);
+
+        /* App Shadow (consistent across UI) */
+        --app-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+
+        /* Global border token */
+        --app-border-color: rgba(212, 212, 212, 0.85);
+    }
+
+    body {
+        @apply bg-background text-neutral-900 antialiased selection:bg-neutral-200 selection:text-black;
+    }
+
+    .dark {
+        --app-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+        --app-border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Custom scrollbar to match the minimal aesthetic */
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: #e5e5e5;
+        border-radius: 20px;
+    }
+}
+
+@layer utilities {
+    .glass-nav {
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+    }
+
+    .search-shadow {
+        box-shadow: var(--app-shadow);
+    }
+
+    .card-hover:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--app-shadow);
+    }
+
+    .border-app-color {
+        border-color: var(--app-border-color);
+    }
+
+    .border-app {
+        border-width: 1px;
+        border-style: solid;
+        border-color: var(--app-border-color);
+    }
+
+    .border-app-t {
+        border-top-width: 1px;
+        border-top-style: solid;
+        border-top-color: var(--app-border-color);
+    }
+
+    .border-app-r {
+        border-right-width: 1px;
+        border-right-style: solid;
+        border-right-color: var(--app-border-color);
+    }
+
+    .border-app-b {
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        border-bottom-color: var(--app-border-color);
+    }
+
+    .border-app-l {
+        border-left-width: 1px;
+        border-left-style: solid;
+        border-left-color: var(--app-border-color);
+    }
+}
+
+/* Remove arrow/spinners from number inputs */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
